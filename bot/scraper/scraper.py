@@ -28,7 +28,7 @@ def find_goods(query: str, articul: list, city: str):
                 'Sec-Fetch-Dest': 'empty',
                 'Sec-Fetch-Mode': 'cors',
                 'Sec-Fetch-Site': 'cross-site',
-                'User-Agent': str(ua.random),
+                'User-Agent': str(ua.chrome),
                 'sec-ch-ua': ('"Chromium";v="106", '
                               '"Yandex";v="22", "Not;A=Brand";v="99"'),
                 'sec-ch-ua-mobile': '?0',
