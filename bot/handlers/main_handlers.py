@@ -1,6 +1,5 @@
 import re
 from aiogram import Dispatcher, types
-from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 import scraper.scraper as scraper
 import keyboard.main_keyboard as keyboard
@@ -37,7 +36,6 @@ async def get_data(message: types.Message, state: Query.text):
         search_params = message.text.split(" ", 1)
         query = search_params[1].lower()
         articul = search_params[0].split(',')
-        print(articul)
         answers = scraper.find_goods(
             query=query, articul=articul, city=current_data['city'])
         if type(answers) is list:

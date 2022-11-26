@@ -23,17 +23,25 @@ def find_goods(query: str, articul: list, city: str):
                 'Accept-Language': 'ru,en;q=0.9',
                 'Connection': 'keep-alive',
                 'Origin': 'https://www.wildberries.ru',
-                'Referer': f'https://www.wildberries.ru/catalog/0/search.aspx?page={i}&sort=popular&search={query}',
+                'Referer': (f'https://www.wildberries.ru/catalog/0/search.'
+                            f'aspx?page={i}&sort=popular&search={query}'),
                 'Sec-Fetch-Dest': 'empty',
                 'Sec-Fetch-Mode': 'cors',
                 'Sec-Fetch-Site': 'cross-site',
                 'User-Agent': str(ua.random),
-                'sec-ch-ua': '"Chromium";v="106", "Yandex";v="22", "Not;A=Brand";v="99"',
+                'sec-ch-ua': ('"Chromium";v="106", '
+                              '"Yandex";v="22", "Not;A=Brand";v="99"'),
                 'sec-ch-ua-mobile': '?0',
                 'sec-ch-ua-platform': '"Windows"',
             }
 
-            response = requests.get(f'https://search.wb.ru/exactmatch/ru/common/v4/search?appType=1&couponsGeo=3,21&curr=rub&dest=-1216601,-103906,-331414,-331412&emp=0&lang=ru&locale=ru&page={i}&pricemarginCoeff=1.0&query={query}&reg=0&regions={regs}&resultset=catalog&sort=rate&spp=0&suppressSpellcheck=false', headers=headers).json()
+            response = requests.get(
+                ('https://search.wb.ru/exactmatch/ru/common/v4/search?'
+                 'appType=1&couponsGeo=3,21&curr=rub&dest=-1216601,-103906,'
+                 f'-331414,-331412&emp=0&lang=ru&locale=ru&page={i}&pricemargi'
+                 f'nCoeff=1.0&query={query}&reg=0&regions={regs}&resultset='
+                 'catalog&sort=rate&spp=0&suppressSpellcheck=false'),
+                headers=headers).json()
             print(f'Проверяю страницу номер {i}...')
             for index, product in enumerate(response['data']['products']):
                 if str(product['id']) in articul:
@@ -44,7 +52,6 @@ def find_goods(query: str, articul: list, city: str):
     except KeyError:
         pass
     diff = len(set(articul)) - len(answers_list)
-    print(diff)
     if diff > 0:
         for _ in range(diff):
             answers_list.append('Артикул отсутствует в поисковой выдаче')
